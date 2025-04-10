@@ -23,8 +23,8 @@ export async function GET(req){
 //gets number of days not in db, makes api request for data on those days, then inserts into db
 export async function POST(req){
     try{
-        const {needed} = await getWeatherData()
-        return NextResponse.json({message:'success',needed:needed},{status:200})
+        const message = await getWeatherData()
+        return NextResponse.json({message:message},{status:200})
     }
     catch(e){
         return NextResponse.json({message:e},{status:500})

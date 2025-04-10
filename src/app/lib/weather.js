@@ -41,10 +41,12 @@ const getDays = async()=>{
 export const getWeatherData = async()=>{
     //check if current day is in database, if not then continue going backwards and get number of days not in db. 
     const days = await getDays()
+    console.log(days)
     let now = new Date()
     let end_date = now.toISOString().slice(0,10)
     now.setDate(now.getDate()-days)
     let start_date = now.toISOString().slice(0,10)
+    console.log(`start date : ${start_date}. End Date : ${end_date}`)
     if(days>0){
         try{
         
