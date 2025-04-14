@@ -1,5 +1,7 @@
 'use client'
 import Image from "next/image";
+import { fetchWeatherApi } from 'openmeteo';
+import MountainSceneParallax from "@/components/MountainSceneParallax";
 
 import { useEffect, useState } from "react";
 export default function Home() {
@@ -64,12 +66,10 @@ for (let i = 0; i < weatherData.hourly.time.length; i++) {
   useEffect(()=>{
     getWeatherData()
   },[])
-  return (
-   <>
-   {/* <div>
-    {weatherData}
-    </div> */}
-   </>
-  );
+    return (
+        <>
+            <MountainSceneParallax />
+        </>
+    );
 }
 
