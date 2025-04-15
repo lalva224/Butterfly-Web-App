@@ -18,7 +18,6 @@ const WeatherButterflyChart = ({dataType}) => {
   const [chartData, setChartData] = useState([]);
   const [unit,setUnit] = useState('')
   const [typeTitle,setTypeTitle] = useState('')
-  const [yDomain,setYDomain] = useState('')
   const getButterflyData = async()=>{
     try{
       const response = await fetch(`/api/${dataType}`)
@@ -29,24 +28,27 @@ const WeatherButterflyChart = ({dataType}) => {
       if(data){
         const processed = data.map(item => ({
           date: new Date(item.date).getTime(), // Convert to timestamp
-          [dataType]: item[dataType]
+          [dataType]: item[dataType],
+          formattedDate: new Date(item.date).toLocaleDateString(undefined, { 
+            month: 'short', 
+            day: 'numeric' 
+          })
         }));
+
         setChartData(processed)
 
         if(dataType=='temperature'){
           setUnit('F')
           setTypeTitle('Temperature')
-          setYDomain([60, 80])
         }
         else if(dataType=='humidity'){
           setUnit('%')
           setTypeTitle('Humidity')
-          setYDomain([55, 85])
+         
         }
         else{
           setUnit('m/s')
           setTypeTitle('Wind Speed')
-          setYDomain([0, 25])
         } 
     }
     else{
@@ -65,11 +67,24 @@ const WeatherButterflyChart = ({dataType}) => {
   // Custom tooltip to display dates in a readable format
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
-      const dateStr = new Date(payload[0].payload.date).toLocaleDateString();
+      const timestamp = payload[0].payload.date;
+      const date = new Date(timestamp);
+      const formattedDate = date.toLocaleDateString(undefined, { 
+        weekday: 'short',
+        month: 'short', 
+        day: 'numeric',
+        year: 'numeric'
+      });
+      const val = payload[0].payload[dataType];
+      console.log(val)
+      
       return (
-        <div className="bg-white p-2 border border-gray-300 rounded">
-          <p className="font-semibold">{dateStr}</p>
-          <p className="text-sm">{typeTitle}: {payload[0].payload[dataType]}{unit}</p>
+        <div className="bg-white p-2 border border-gray-300 rounded shadow-md">
+          <p className="font-semibold text-gray-800">{formattedDate} <br/> {typeTitle}: {val}</p>
+          <p className="font-medium">{typeTitle}: {val}{unit}</p>
+          {/* <p className="text-sm">
+            
+          </p> */}
         </div>
       );
     }
@@ -98,14 +113,17 @@ const WeatherButterflyChart = ({dataType}) => {
             name="Date" 
             tickFormatter={formatXAxis}
             domain={['dataMin', 'dataMax']}
+            
+
           />
           <YAxis 
             type="number" 
             dataKey={dataType}
             name={typeTitle}
             unit={unit}
-            domain={yDomain}
+            domain={['dataMin','dataMax']}
           />
+           {/* <Tooltip cursor={{ strokeDasharray: '3 3' }} /> */}
           <Tooltip content={<CustomTooltip />} cursor={{ strokeDasharray: '3 3' }} />
           <Scatter 
             name={typeTitle}
