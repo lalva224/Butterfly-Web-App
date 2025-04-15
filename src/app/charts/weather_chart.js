@@ -20,15 +20,12 @@ const WeatherButterflyChart = ({dataType}) => {
   const [typeTitle,setTypeTitle] = useState('')
   const [yDomain,setYDomain] = useState('')
   const getButterflyData = async()=>{
-
-
     try{
       const response = await fetch(`/api/${dataType}`)
       if(!response.ok){
         return <p>{response.statusText}</p>
       }
       let {data} = await response.json()
-      console.log(data.dataType)
       if(data){
         const processed = data.map(item => ({
           date: new Date(item.date).getTime(), // Convert to timestamp

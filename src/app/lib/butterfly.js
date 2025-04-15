@@ -2,22 +2,26 @@ import { connect_db } from "@/app/lib/db_setup"
 
 const butterfly_collection = await connect_db()
 
+//use cursor object to make this faster?
+let butterfly_data;
+const getButterflyData = async()=>{
+    const butterfly_data_cursor = butterfly_collection.find()
+    const butterfly_data_result = await butterfly_data_cursor.toArray()
+    butterfly_data = butterfly_data_result
+}
 export const getButterflyDataTemperature = async()=>{
-    const butterfly_data_cursor = butterfly_collection.find({},{projection:{_id:0,date:1,temperature:1}})
-    const butterfly_data = await butterfly_data_cursor.toArray()
-    return butterfly_data
+    if(!butterfly_data) await getButterflyData()
+    return butterfly_data.map((butterfly)=>({"date":butterfly.date,"temperature":butterfly.temperature}))
 
 }
 export const getButterflyDataHumidity = async()=>{
-    const butterfly_data_cursor = butterfly_collection.find({},{projection:{_id:0,date:1,humidity:1}})
-    const butterfly_data = await butterfly_data_cursor.toArray()
-    return butterfly_data
+    if(!butterfly_data) await getButterflyData()
+    return butterfly_data.map((butterfly)=>({"date":butterfly.date,"humidity":butterfly.humidity}))
 
 }
 export const getButterflyDataWindSpeed = async()=>{
-    const butterfly_data_cursor = butterfly_collection.find({},{projection:{_id:0,date:1,wind_speed:1}})
-    const butterfly_data = await butterfly_data_cursor.toArray()
-    return butterfly_data
+    if(!butterfly_data) await getButterflyData()
+    return butterfly_data.map((butterfly)=>({"date":butterfly.date,"wind_speed":butterfly.wind_speed}))
 
 }
 
