@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useRef, useMemo } from "react";
+import  WeatherButterflyChart  from "../app/charts/weather_chart"
+import PieChartMakeUp from "@/app/charts/species_makeup_chart";
 
 const MountainSceneParallax = () => {
     const [scrollPosition, setScrollPosition] = useState(0);
@@ -279,18 +281,22 @@ const MountainSceneParallax = () => {
                 {/* Additional content can be added here */}
                 <div className="bg-black bg-opacity-70 min-h-screen flex items-center justify-center p-8">
                     <div className="max-w-4xl text-white">
-                        <h2 className="text-4xl font-bold mb-6">Your Content Here</h2>
-                        <p className="text-xl mb-4">
-                            Scroll down to see the parallax effect in action.
-                            This demonstrates the Firewatch-inspired day-to-night transition.
-                        </p>
-                        <p className="text-xl">
-                            Add more sections below to create a full scrolling experience.
-                        </p>
+                        <h2 className="text-4xl font-bold mb-6 text-center ">Temperature and Butterfly vs Time</h2>
+                        <WeatherButterflyChart dataType='temperature'/>
+
+                        <h2 className="text-4xl font-bold mb-6 text-center">Humidity and Butterfly vs Time</h2>
+                        <WeatherButterflyChart dataType='humidity'/>
+
+                        <h2 className="text-4xl font-bold mb-12 text-center ">Wind Speed and Butterfly vs Time</h2>
+                        <WeatherButterflyChart dataType='wind_speed'/>
+                        <h2 className="text-4xl font-bold text-center mb-[5rem]">Species Makeup</h2>
+                        <PieChartMakeUp/>
                     </div>
+                    
+                    
                 </div>
 
-                {/* You can add more content sections here */}
+              
             </div>
         </div>
     );
