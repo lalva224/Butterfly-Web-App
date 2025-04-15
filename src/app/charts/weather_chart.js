@@ -14,30 +14,43 @@ import {
 } from 'recharts';
 
 
-const data = [
-  { x: 100, y: 200, z: 200 },
-  { x: 120, y: 100, z: 260 },
-  { x: 170, y: 300, z: 400 },
-  { x: 140, y: 250, z: 280 },
-  { x: 150, y: 400, z: 500 },
-  { x: 110, y: 280, z: 200 },
-];
- const ScatterChartTemperature = () => {
+const WeatherButterflyChart = ({dataType}) => {
   const [chartData, setChartData] = useState([]);
-
+  const [unit,setUnit] = useState('')
+  const [typeTitle,setTypeTitle] = useState('')
+  const [yDomain,setYDomain] = useState('')
   const getButterflyData = async()=>{
+
+
     try{
-      const response = await fetch('api/butterfly')
+      const response = await fetch(`/api/${dataType}`)
       if(!response.ok){
         return <p>{response.statusText}</p>
       }
       let {data} = await response.json()
+      console.log(data.dataType)
       if(data){
         const processed = data.map(item => ({
           date: new Date(item.date).getTime(), // Convert to timestamp
-          temperature: item.temperature
+          [dataType]: item[dataType]
         }));
         setChartData(processed)
+
+        if(dataType=='temperature'){
+          setUnit('F')
+          setTypeTitle('Temperature')
+          setYDomain([60, 80])
+        }
+        else if(dataType=='humidity'){
+          setUnit('%')
+          setTypeTitle('Humidity')
+          setYDomain([55, 85])
+        }
+        else{
+          setUnit('m/s')
+          setTypeTitle('Wind Speed')
+          setYDomain([0, 25])
+        } 
     }
     else{
       return <p>No data</p>
@@ -59,20 +72,19 @@ const data = [
       return (
         <div className="bg-white p-2 border border-gray-300 rounded">
           <p className="font-semibold">{dateStr}</p>
-          <p className="text-sm">Temperature: {payload[0].payload.temperature}°F</p>
+          <p className="text-sm">{typeTitle}: {payload[0].payload[dataType]}{unit}</p>
         </div>
       );
     }
     return null;
   };
-
   const formatXAxis = (timestamp) => {
     return new Date(timestamp).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
   };
 
   return (
     <div className="w-full">
-      <h3 className="text-xl font-bold mb-4 text-center">Temperature Trends March 2025 - Present</h3>
+      <h3 className="text-xl font-bold mb-4 text-center">{typeTitle} Trends March 2025 - Present</h3>
       <ResponsiveContainer width="100%" height={400}>
         <ScatterChart
           margin={{
@@ -92,14 +104,14 @@ const data = [
           />
           <YAxis 
             type="number" 
-            dataKey="temperature" 
-            name="Temperature" 
-            unit="°F" 
-            domain={[60, 80]}
+            dataKey={dataType}
+            name={typeTitle}
+            unit={unit}
+            domain={yDomain}
           />
           <Tooltip content={<CustomTooltip />} cursor={{ strokeDasharray: '3 3' }} />
           <Scatter 
-            name="Temperature" 
+            name={typeTitle}
             data={chartData} 
             fill="#8884d8" 
             shape="circle" 
@@ -110,5 +122,5 @@ const data = [
   );
 };
 
-export default ScatterChartTemperature;
+export default WeatherButterflyChart;
 

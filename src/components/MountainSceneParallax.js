@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useMemo } from "react";
-import  ScatterChartTemperature  from "../app/charts/temp_chart"
+import  WeatherButterflyChart  from "../app/charts/weather_chart"
 
 const MountainSceneParallax = () => {
     const [scrollPosition, setScrollPosition] = useState(0);
@@ -281,14 +281,13 @@ const MountainSceneParallax = () => {
                 <div className="bg-black bg-opacity-70 min-h-screen flex items-center justify-center p-8">
                     <div className="max-w-4xl text-white">
                         <h2 className="text-4xl font-bold mb-6">Temperature and Butterfly count over Time</h2>
-                        {/* <p className="text-xl mb-4">
-                            Scroll down to see the parallax effect in action.
-                            This demonstrates the Firewatch-inspired day-to-night transition.
-                        </p>
-                        <p className="text-xl">
-                            Add more sections below to create a full scrolling experience.
-                        </p> */}
-                        <ScatterChartTemperature/>
+                        <WeatherButterflyChart dataType='temperature'/>
+
+                        <h2 className="text-4xl font-bold mb-6">Humidity and Butterfly count over Time</h2>
+                        <WeatherButterflyChart dataType='humidity'/>
+
+                        <h2 className="text-4xl font-bold mb-6">Wind Speed and Butterfly count over Time</h2>
+                        <WeatherButterflyChart dataType='wind_speed'/>
                     </div>
                     
                 </div>

@@ -8,4 +8,16 @@ export const getButterflyDataTemperature = async()=>{
     return butterfly_data
 
 }
+export const getButterflyDataHumidity = async()=>{
+    const butterfly_data_cursor = butterfly_collection.find({},{projection:{_id:0,date:1,humidity:1}})
+    const butterfly_data = await butterfly_data_cursor.toArray()
+    return butterfly_data
+
+}
+export const getButterflyDataWindSpeed = async()=>{
+    const butterfly_data_cursor = butterfly_collection.find({},{projection:{_id:0,date:1,wind_speed:1}})
+    const butterfly_data = await butterfly_data_cursor.toArray()
+    return butterfly_data
+
+}
 
