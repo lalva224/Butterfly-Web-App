@@ -4,9 +4,10 @@ const uri = process.env.MONGO_URI
 // connects every session
 export let client;
 
- export async function connect() {
+ export async function connect_db() {
   if(!client){
     client  = new MongoClient(uri)
+
     try {
       // Connect the client to the server	(optional starting in v4.7)
       await client.connect();
@@ -15,7 +16,9 @@ export let client;
       console.log("Failed to Connect to Mongo DB:",e)
     } 
   }
-  return client.db('butterfly_data')
+  let db =  client.db('butterfly_data')
+  let butterfly_connection = db.collection("merged_butterfly_weather_data")
+  return butterfly_connection
  
 }
 
