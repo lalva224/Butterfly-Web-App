@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useMemo } from "react";
 import  WeatherButterflyChart  from "../app/charts/weather_chart"
 import PieChartMakeUp from "@/app/charts/species_makeup_chart";
+import TeamCarousel from "@/components/TeamCarousel";
 
 const MountainSceneParallax = () => {
     const [scrollPosition, setScrollPosition] = useState(0);
@@ -12,7 +13,6 @@ const MountainSceneParallax = () => {
     const animationFrameId = useRef(null);
 
     useEffect(() => {
-        // Set initial viewport height
         setViewportHeight(window.innerHeight);
 
         const updateScrollPosition = () => {
@@ -48,7 +48,6 @@ const MountainSceneParallax = () => {
         };
     }, [viewportHeight]);
 
-    // Define the layers with Firewatch-inspired settings
     const layers = [
         {
             id: 'sky',
@@ -276,27 +275,44 @@ const MountainSceneParallax = () => {
             {/* Content sections - you can add multiple sections to scroll through */}
             <div className="relative z-20 will-change-transform">
                 {/* First viewport height is just for parallax effect */}
-                <div className="h-screen"></div>
-
+                <div className="h-screen flex flex-col items-center justify-center relative">
+                    {/* Main title overlay - positioned in the center of the first viewport */}
+                    <div className="absolute z-30 text-center px-6 py-8 rounded-lg" style={{
+                        background: 'rgba(0, 0, 0, 0.4)',
+                        backdropFilter: 'blur(8px)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        maxWidth: '90%'
+                    }}>
+                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 tracking-tight">
+                            INIT Build Advanced AI Project
+                        </h1>
+                        <h2 className="text-3xl md:text-4xl text-white font-light tracking-wide">
+                            Butterfly Detection
+                        </h2>
+                    </div>
+                </div>
                 {/* Additional content can be added here */}
-                <div className="bg-black bg-opacity-70 min-h-screen flex items-center justify-center p-8">
-                    <div className="max-w-4xl text-white">
-                        <h2 className="text-4xl font-bold mb-6 text-center ">Temperature and Butterfly vs Time</h2>
+                <div className="bg-black bg-opacity-70 min-h-screen flex flex-col items-center justify-center p-8">
+                    <div className="max-w-4xl w-full text-white">
+                        <h2 className="text-4xl font-bold mb-6 text-center">Temperature and Butterfly vs Time</h2>
                         <WeatherButterflyChart dataType='temperature'/>
 
                         <h2 className="text-4xl font-bold mb-6 text-center">Humidity and Butterfly vs Time</h2>
                         <WeatherButterflyChart dataType='humidity'/>
 
-                        <h2 className="text-4xl font-bold mb-12 text-center ">Wind Speed and Butterfly vs Time</h2>
+                        <h2 className="text-4xl font-bold mb-12 text-center">Wind Speed and Butterfly vs Time</h2>
                         <WeatherButterflyChart dataType='wind_speed'/>
+
                         <h2 className="text-4xl font-bold text-center mb-[5rem]">Species Makeup</h2>
                         <PieChartMakeUp/>
                     </div>
-                    
-                    
-                </div>
 
-              
+                    {/* Research team section */}
+                    <div className="w-full max-w-4xl mt-16">
+                        <h2 className="text-4xl font-bold mb-8 text-center text-white">Our Butterfly Research Team</h2>
+                        <TeamCarousel isNightMode={isNightMode} />
+                    </div>
+                </div>
             </div>
         </div>
     );
