@@ -27,7 +27,7 @@ const researchers = [
         role: "Lead",
         avatarColor: "bg-emerald-600",
         image: "images/individual-pictures/Pooja.jpg",
-        linkedin: "https://www.linkedin.com/in/ronaldocarrazco/"
+        linkedin: "https://www.linkedin.com/in/pooja-lad"
     },
     {
         id: 3,
@@ -44,6 +44,15 @@ const researchers = [
         avatarColor: "bg-red-600",
         image: "images/individual-pictures/Mark.png",
         linkedin: "https://www.linkedin.com/in/mark-anthony-delva-914194294/"
+    },
+    {
+        id: 12,
+        name: "Lucas Arabi",
+        role: "ML Team",
+        avatarColor: "bg-red-600",
+        image: "images/individual-pictures/Lucas.jpg",
+        linkedin: "https://www.linkedin.com/in/lucas-arabi-55605524b/"
+
     },
     {
         id: 5,
@@ -105,15 +114,7 @@ const researchers = [
         image: "images/individual-pictures/Nageline.jpg",
         linkedin: "https://www.linkedin.com/in/nagevr/"
     },
-    {
-        id: 12,
-        name: "Lucas Arabi",
-        role: "ML Team",
-        avatarColor: "bg-red-600",
-        image: "images/individual-pictures/Lucas.jpg",
-        linkedin: "https://www.linkedin.com/in/lucas-arabi-55605524b/"
-
-    }
+    
 
 ];
 
