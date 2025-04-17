@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useEffect } from "react";
 import {
     Carousel,
@@ -5,7 +6,10 @@ import {
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
+    
 } from "@/components/ui/carousel";
+// import type { EmblaCarouselType } from "embla-carousel-react";
+
 
 // Your team data
 const researchers = [
@@ -278,6 +282,7 @@ const FlipCard = ({ person, isNightMode }) => {
 
 // Main carousel component
 export function TeamCarousel({ isNightMode = false }) {
+
     const [api, setApi] = useState(null);
 
     // Add the flip card styles on the client side only
@@ -358,7 +363,7 @@ export function TeamCarousel({ isNightMode = false }) {
 
             <Carousel
                 className="w-full"
-                onApiChange={setApi}
+                // onApiChange={setApi}
                 opts={{
                     align: "center",
                 }}

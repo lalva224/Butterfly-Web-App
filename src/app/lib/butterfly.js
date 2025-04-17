@@ -11,22 +11,21 @@ const getButterflyData = async()=>{
 }
 export const getButterflyDataTemperature = async()=>{
     if(!butterfly_data) await getButterflyData()
-    return butterfly_data.map((butterfly)=>({"date":butterfly.date,"temperature":butterfly.temperature}))
+    return butterfly_data.map((butterfly)=>({"date":butterfly.date,"temperature":butterfly.temperature,"species":butterfly.species}))
 
 }
 export const getButterflyDataHumidity = async()=>{
     if(!butterfly_data) await getButterflyData()
-    return butterfly_data.map((butterfly)=>({"date":butterfly.date,"humidity":butterfly.humidity}))
+    return butterfly_data.map((butterfly)=>({"date":butterfly.date,"humidity":butterfly.humidity,"species":butterfly.species}))
 
 }
 export const getButterflyDataWindSpeed = async()=>{
     if(!butterfly_data) await getButterflyData()
-    return butterfly_data.map((butterfly)=>({"date":butterfly.date,"wind_speed":butterfly.wind_speed}))
+    return butterfly_data.map((butterfly)=>({"date":butterfly.date,"wind_speed":butterfly.wind_speed,"species":butterfly.species}))
 
 }
 
 export const getSpeciesMakeupData = async()=>{
-    console.log('getting species makeup')
     if(!butterfly_data) await getButterflyData()
     //aggregate : group by the id -> species. Then get their counts by each id. Lastly project by switching names to value and label
     const pie_chart_data_cursor = butterfly_collection.aggregate(

@@ -29,6 +29,7 @@ const WeatherButterflyChart = ({dataType}) => {
         const processed = data.map(item => ({
           date: new Date(item.date).getTime(), // Convert to timestamp
           [dataType]: item[dataType],
+          species : item.species,
           formattedDate: new Date(item.date).toLocaleDateString(undefined, { 
             month: 'short', 
             day: 'numeric' 
@@ -62,8 +63,27 @@ const WeatherButterflyChart = ({dataType}) => {
   
   useEffect(() => {
     getButterflyData()
-  }, []);
-
+  }, [dataType]);
+  const generateEvenlySpacedTicks = (data) => {
+    if (!data || data.length < 2) return [];
+    
+    // Sort data points by date
+    const sortedDates = [...data].sort((a, b) => a.date - b.date);
+    
+    // Get min and max dates
+    const minDate = sortedDates[0].date;
+    const maxDate = sortedDates[sortedDates.length - 1].date;
+    
+    // Create array of 10 evenly spaced ticks
+    const result = [];
+    const interval = (maxDate - minDate) / 9; // 9 intervals for 10 ticks
+    
+    for (let i = 0; i < 10; i++) {
+      result.push(minDate + (interval * i));
+    }
+    
+    return result;
+  };
   // Custom tooltip to display dates in a readable format
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
@@ -76,11 +96,11 @@ const WeatherButterflyChart = ({dataType}) => {
         year: 'numeric'
       });
       const val = payload[0].payload[dataType];
-      console.log(val)
+      const species = payload[0].payload['species']
       
       return (
         <div className="bg-white p-2 border border-gray-300 rounded shadow-md">
-          <p className="font-semibold text-gray-800">{formattedDate} <br/> {typeTitle}: {val}</p>
+          <p className="font-semibold text-gray-800">{formattedDate} <br/> {typeTitle}: {val} <br/> Species : {species} </p>
           <p className="font-medium">{typeTitle}: {val}{unit}</p>
           {/* <p className="text-sm">
             
@@ -113,6 +133,7 @@ const WeatherButterflyChart = ({dataType}) => {
             name="Date" 
             tickFormatter={formatXAxis}
             domain={['dataMin', 'dataMax']}
+            ticks={generateEvenlySpacedTicks(chartData)}
             
 
           />

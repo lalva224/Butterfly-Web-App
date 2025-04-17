@@ -62,7 +62,6 @@ export default function PieChartMakeUp(){
       getSpeciesMakeup()
     },[])
 
-    //study this
     useEffect(()=>{
       setChartState(prevState=>({
         ...prevState,
