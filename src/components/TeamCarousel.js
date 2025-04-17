@@ -46,7 +46,7 @@ const researchers = [
         linkedin: "https://www.linkedin.com/in/mark-anthony-delva-914194294/"
     },
     {
-        id: 12,
+        id: 5,
         name: "Lucas Arabi",
         role: "ML Team",
         avatarColor: "bg-red-600",
@@ -55,7 +55,7 @@ const researchers = [
 
     },
     {
-        id: 5,
+        id: 6,
         name: "Jordan Hancock",
         role: "Hardware Team",
         avatarColor: "bg-red-600",
@@ -63,7 +63,7 @@ const researchers = [
         linkedin: "https://www.linkedin.com/in/jordan-hancock-0aa44018a/"
     },
     {
-        id: 6,
+        id: 7,
         name: "Gabriel Suarez",
         role: "Hardware and Web Dev Team",
         avatarColor: "bg-red-600",
@@ -72,7 +72,7 @@ const researchers = [
 
     },
     {
-        id: 7,
+        id: 8,
         name: "Arantza Mendoza",
         role: "ML and Web Dev Team",
         avatarColor: "bg-red-600",
@@ -81,16 +81,16 @@ const researchers = [
 
     },
     {
-        id: 8,
+        id: 9,
         name: "Tyler Hebron",
         role: "ML and Web Dev Team",
         avatarColor: "bg-red-600",
         image: "images/individual-pictures/Tyler.jpg",
-        linkedin: "https://www.linkedin.com/in/Tyler-Hebron/"
+        linkedin: "https://www.linkedin.com/in/tyler-hebron-9689122a9/"
     },
 
     {
-        id: 9,
+        id: 10,
         name: "Eileen Paula",
         role: "ML Team",
         avatarColor: "bg-red-600",
@@ -99,7 +99,7 @@ const researchers = [
 
     },
     {
-        id: 10,
+        id: 11,
         name: "Alejandro Morales",
         role: "ML and Web Dev Team",
         avatarColor: "bg-red-600",
@@ -107,7 +107,7 @@ const researchers = [
         linkedin: "https://www.linkedin.com/in/alejandromorales3/"
     },
     {
-        id: 11,
+        id: 12,
         name: "Nageline Rodriguez",
         role: "Hardware and Web Dev Team",
         avatarColor: "bg-red-600",
