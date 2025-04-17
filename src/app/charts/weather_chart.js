@@ -20,7 +20,7 @@ const WeatherButterflyChart = ({dataType}) => {
   const [typeTitle,setTypeTitle] = useState('')
   const getButterflyData = async()=>{
     try{
-      const response = await fetch(`/api/${dataType}`)
+      const response = await fetch(`/api/${dataType}?refresh=true`)
       if(!response.ok){
         return <p>{response.statusText}</p>
       }
@@ -63,7 +63,7 @@ const WeatherButterflyChart = ({dataType}) => {
   
   useEffect(() => {
     getButterflyData()
-  }, [dataType]);
+  }, []);
   const generateEvenlySpacedTicks = (data) => {
     if (!data || data.length < 2) return [];
     
@@ -113,6 +113,7 @@ const WeatherButterflyChart = ({dataType}) => {
   const formatXAxis = (timestamp) => {
     return new Date(timestamp).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
   };
+  
 
   return (
     <div className="w-full">
